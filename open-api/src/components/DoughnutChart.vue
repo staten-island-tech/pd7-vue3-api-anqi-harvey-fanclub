@@ -1,46 +1,31 @@
 <template>
   <div>
-    <Doughnut id="doughnut-id" :options="chartOptions" :data="chartData" />
+    <Doughnut id="doughnut-id" :options="options" :data="chartData" />
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
-const squirrels = ref('')
-async function getSquirrels() {
-  let res = await fetch(`https://data.cityofnewyork.us/resource/vfnx-vebw.json`)
-  console.log(res)
-  let data = await res.json()
-  console.log(data)
-  squirrels.value = data
-}
-onMounted(() => {
-  getSquirrels()
-})
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  DoughnutElement,
-  CategoryScale,-
-  LinearScale
-} from 'chart.js'
 
-ChartJS.register(Title, Tooltip, Legend, DoughnutElement, CategoryScale, LinearScale)
+ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default {
   name: 'DoughnutChart',
   components: { Doughnut },
-  data() {
-    return {
-      chartData: {
-        labels: []
-      },
-      chartOptions: {
-        responsive: true
-      }
+  data: () => ({
+    loaded: false,
+    chartData: null
+  }),
+  async mounted() {
+    this.loaded = false
+    try {
+      const { squirrelData } = await fetch(`https://data.cityofnewyork.us/resource/vfnx-vebw.json`)
+      console.log('got')
+      this.chartdata = squirrelData
+      this.loaded = true
+    } catch (e) {
+      console.error(e)
     }
   }
 }
