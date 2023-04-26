@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
  <squirrelCard v-for="(monster, index) in squirrel" :key="monster.hectare" :unique_squirrel_id="monster.unique_squirrel_id" :squirrel="monster">
  </squirrelCard>
   </div>
@@ -23,6 +23,11 @@ onMounted(()=>{
 
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+.container {
+  flex-wrap: wrap;
+  justify-content: center;
+  display: flex;
+  margin: 2%;
+}
 </style>
