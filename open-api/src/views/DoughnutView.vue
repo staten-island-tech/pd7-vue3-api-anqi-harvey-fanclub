@@ -1,32 +1,37 @@
 <template>
   <div class="chart">
-    <DoughnutChart />
+    <DoughnutChart v-if="loaded" :data="chartData" :options="chartOptions" />
   </div>
 </template>
 
 <script>
 import DoughnutChart from '../components/DoughnutChart.vue'
 export default {
-  name: 'App',
+  name: 'DoughnutView',
   components: {
     DoughnutChart
+  },
+  data() {
+    return {
+      loaded: false,
+      chartData: {
+        labels: [],
+        datasets: []
+      },
+      chartOptions: {}
+    }
+  },
+  async mounted() {
+    try {
+      const res = await fetch('https://data.cityofnewyork.us/resource/vfnx-vebw.json')
+      const squirrelData = res.json()
+      console.log(squirrelData)
+      let labels = ['Gray', 'Cinnamon', 'Black']
+    } catch {}
   }
 }
 </script>
 
-<script setup>
-// import { ref, onMounted } from 'vue'
-// const squirrels = ref('')
-// async function getSquirrels() {
-//   let res = await fetch(`https://data.cityofnewyork.us/resource/vfnx-vebw.json`)
-//   console.log(res)
-//   let data = await res.json()
-//   console.log(data)
-//   squirrels.value = data
-// }
-// onMounted(() => {
-//   getSquirrels()
-// })
-</script>
+<script setup></script>
 
 <style lang="scss" scoped></style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Doughnut id="doughnut-id" v-if="loaded" :data="chartData" />
+    <Doughnut id="DoughnutChart" v-if="loaded" :data="chartData" />
   </div>
 </template>
 
@@ -13,23 +13,16 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 export default {
   name: 'DoughnutChart',
   components: { Doughnut },
-  data: () => ({
-    loaded: false,
-    chartData: null
-  }),
-  async mounted() {
-    this.loaded = false
-    try {
-      let squirrelData = await fetch(`https://data.cityofnewyork.us/resource/vfnx-vebw.json`)
-      const squirrels = await squirrelData.json()
-      console.log(squirrels)
-      this.chartData = squirrels
-      this.loaded = true
-    } catch (e) {
-      console.error(e)
+  props: {
+    type: Object,
+    required: true,
+    default: () => ({
+      responsive: true
+    }),
+    chartData: {
+      type: Object,
+      required: true
     }
   }
 }
 </script>
-
-<style lang="scss" scoped></style>
