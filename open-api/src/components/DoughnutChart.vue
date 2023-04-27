@@ -33,12 +33,17 @@ export default {
     try {
       const res = await fetch('https://data.cityofnewyork.us/resource/vfnx-vebw.json')
       const squirrelData = await res.json()
-      squirrelData.forEach((squirrel) => this.chartData.data.push(squirrel.primary_fur_color))
+      const gray = squirrelData.filter((squirrel) => squirrel.primary_fur_color === 'Gray')
+      this.chartData.data.push(gray.length)
+      const cinnamon = squirrelData.filter((squirrel) => squirrel.primary_fur_color === 'Cinnamon')
+      this.chartData.data.push(cinnamon.length)
+      const black = squirrelData.filter((squirrel) => squirrel.primary_fur_color === 'Black')
+      this.chartData.data.push(black.length)
       this.loaded = true
     } catch (e) {
       console.error(e)
     }
-    console.log(this.chartData)
+    console.log(this.chartData.data)
   }
 }
 </script>
