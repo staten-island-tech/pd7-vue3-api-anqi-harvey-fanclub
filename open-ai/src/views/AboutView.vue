@@ -3,7 +3,12 @@
     <h1>This is an about page</h1>
   </div>
 </template>
+<script>
+import Chart from 'chart.js/auto'
+import { getDimensions } from './api'
 
+
+</script>
 <style>
 @media (min-width: 1024px) {
   .about {
