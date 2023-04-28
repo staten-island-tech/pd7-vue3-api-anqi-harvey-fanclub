@@ -27,7 +27,7 @@ export default {
       chartOptions: {
         responsive: true,
         maintainAspectRatio: true,
-        backgroundColor: ['#7B888E', '#9c4722', '#3b444b']
+        backgroundColor: ['#7B888E', '#9c4722', '#282d30'],
       }
     }
   },
@@ -52,3 +52,18 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+h2 {
+  color: #7a6e63;
+  font-size: 2rem;
+  text-align: center;
+
+}
+h2:hover {
+  text-decoration: underline;
+  transition: 1s;
+  color: #7a6e63;
+  font-size: 2.5rem;
+}
+</style>
