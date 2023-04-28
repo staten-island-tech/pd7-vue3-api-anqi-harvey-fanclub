@@ -1,11 +1,9 @@
 <template>
-  <h2>Squirrel Primary Colors</h2>
-  <DoughnutChart />
+  <DoughnutChart/>
 </template>
 
 <script>
-import DoughnutChart from '../components/DoughnutChart.vue'
-
+import DoughnutChart from '../components/DoughnutChart.vue';
 export default {
   name: 'App',
   components: { DoughnutChart }

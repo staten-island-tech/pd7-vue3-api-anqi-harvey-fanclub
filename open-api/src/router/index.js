@@ -1,13 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import DoughnutView from '../views/DoughnutView.vue'
+import CardView from'../views/CardView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
+      name: 'card',
+      component: CardView
+    },
+    {
+      path: '/doughnut',
       name: 'doughnut',
-      component: DoughnutView
+      component: () => import('../views/DoughnutView.vue')
     }
   ]
 })
