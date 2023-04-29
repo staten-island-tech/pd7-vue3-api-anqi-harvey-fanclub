@@ -8,17 +8,17 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import squirrelCard from "../components/squirrelCard.vue"
-const squirrel= ref('') 
-async function getSquirrel() {
-  let res = await fetch('https://data.cityofnewyork.us/resource/vfnx-vebw.json')
-  let data = await res.json()
-  squirrel.value = data 
-   console.log(squirrel.value )
-}
-onMounted(()=>{
-  getSquirrel()
+// const squirrel= ref('') 
+// async function getSquirrel() {
+//   let res = await fetch('https://data.cityofnewyork.us/resource/vfnx-vebw.json')
+//   let data = await res.json()
+//   squirrel.value = data 
+//    console.log(squirrel.value )
+// }
+// onMounted(()=>{
+//   getSquirrel()
   
-})
+// })
 
 
 </script>
