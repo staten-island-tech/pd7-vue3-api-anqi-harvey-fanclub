@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 
-import ChartComponent from './components/ChartComponent.vue'
+
 </script>
 
 <template>

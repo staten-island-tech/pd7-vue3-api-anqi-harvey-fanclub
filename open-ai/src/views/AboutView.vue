@@ -1,20 +1,16 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div>
+    <p v-if="showMessage">This message will show if showMessage is true</p>
+    <button @click="showMessage = true">Click me to show the message</button>
   </div>
 </template>
+
 <script>
-import Chart from 'chart.js/auto'
-import { getDimensions } from './api'
-
-
-</script>
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+export default {
+  data() {
+    return {
+      showMessage: false
+    }
   }
 }
-</style>
+</script>
