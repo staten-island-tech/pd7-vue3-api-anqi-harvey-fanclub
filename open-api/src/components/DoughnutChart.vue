@@ -1,6 +1,8 @@
 <template>
   <div class="chart">
     <RouterLink to="/">Back to Main</RouterLink>
+    <br />
+    <RouterLink to="/bar">To Bar</RouterLink>
     <h2>Squirrel Primary Colors - Doughnut Chart</h2>
     <Doughnut v-if="loaded" :data="chartData" :options="chartOptions" />
   </div>
@@ -22,12 +24,12 @@ export default {
       loaded: false,
       chartData: {
         labels: ['Gray', 'Cinnamon', 'Black'],
-        datasets:[{ data: [] }],
+        datasets: [{ data: [] }]
       },
       chartOptions: {
         responsive: true,
         maintainAspectRatio: true,
-        backgroundColor: ['#7B888E', '#9c4722', '#282d30'],
+        backgroundColor: ['#7B888E', '#9c4722', '#282d30']
       }
     }
   },
@@ -58,7 +60,6 @@ h2 {
   color: #7a6e63;
   font-size: 2rem;
   text-align: center;
-
 }
 h2:hover {
   text-decoration: underline;
