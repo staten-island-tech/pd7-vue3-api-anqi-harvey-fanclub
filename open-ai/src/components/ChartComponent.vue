@@ -1,6 +1,11 @@
 <template>
   <Bar v-if="showGraph" :data="data" :options="options" />
   <button @click="showGraph = true">Click me to show the message</button>
+  <button @click="createGraph">Jaja</button>
+  <select type="input" id="input">
+    <option>Age</option>
+    <option>Fur Color</option>
+  </select>
 </template>
 
 <script>
@@ -35,38 +40,51 @@ export default {
       data: {
         labels: ["Black", "Gray", "Cinnamon"],
         datasets: [{ data: [] }],
-
       },
       options: {
         responsive: true,
-        backgroundColor: ['#000000','#808080', '#D2691E']
+        backgroundColor: ["#000000", "#808080", "#D2691E"],
       },
     };
   },
-  async mounted() {
-    let res = await fetch(
-      "https://data.cityofnewyork.us/resource/vfnx-vebw.json"
-    );
-    let dataYep = await res.json();
-    console.log(dataYep);
-    const black = dataYep.filter(
-      (squirrelYes) => squirrelYes.primary_fur_color === "Black"
-    );
-    this.data.datasets[0].data.push(black.length);
-console.log(black.length)
-    const gray = dataYep.filter(
-      (squirrelYes) => squirrelYes.primary_fur_color === "Gray"
-    );
-    this.data.datasets[0].data.push(gray.length);
-    console.log(dataYep)
-    console.log(gray.length)
-    console.log(dataYep)
+  methods: {
+    async createGraph() {
+      let res = await fetch(
+        "https://data.cityofnewyork.us/resource/vfnx-vebw.json"
+      );
+      let dataYep = await res.json();
+      console.log(dataYep);
+      let inputxd = document.querySelector("#input").value;
 
-    const cinnamon = dataYep.filter(
-      (squirrelYes) => squirrelYes.primary_fur_color === "Cinnamon"
-    );
-    this.data.datasets[0].data.push(cinnamon.length);
-    console.log(cinnamon.length)
+      console.log(inputxd);
+      if (inputxd === "Fur Color") {
+        console.log("hi");
+        const black = dataYep.filter(
+          (squirrelYes) => squirrelYes.primary_fur_color === "Black"
+        );
+        this.data.datasets[0].data.push(black.length);
+
+        const gray = dataYep.filter(
+          (squirrelYes) => squirrelYes.primary_fur_color === "Gray"
+        );
+        this.data.datasets[0].data.push(gray.length);
+
+        const cinnamon = dataYep.filter(
+          (squirrelYes) => squirrelYes.primary_fur_color === "Cinnamon"
+        );
+        this.data.datasets[0].data.push(cinnamon.length);
+      } else if (inputxd === "Age") {
+        console.log("bye");
+        const Adult = dataYep.filter(
+          (squirrelYes) => squirrelYes.age === "Adult"
+        );
+        this.data.datasets[0].data.push(Adult.length);
+        const Juvenile = dataYep.filter(
+          (squirrelYes) => squirrelYes.age === "Juvenile"
+        );
+        this.data.datasets[0].data.push(Juvenile.length);
+      }
+    },
   },
 };
 </script>
