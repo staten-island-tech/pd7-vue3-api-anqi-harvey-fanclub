@@ -2,7 +2,7 @@
   <Bar v-if="showGraph" :data="data" :options="options" />
   <Bar v-if="showGraphs" :data="data2" :options="options" />
   <button @click="createGraph">Create Graph</button>
-  <select type="input" id="input" >
+  <select type="input" id="input">
     <option>Age</option>
     <option>Primary Fur Color</option>
   </select>
@@ -32,15 +32,16 @@ ChartJS.register(
 export default {
   name: "App",
   components: {
-    Bar, Bar
+    Bar,
+    Bar,
   },
   data() {
     return {
       showGraph: false,
       data: {
-        labels: [ "Black", "Gray", "Cinnamon"], 
-     
-        datasets: [{ data: [] }],
+        labels: ["Black", "Gray", "Cinnamon"],
+
+        datasets: [{ label: "Primary Fur Color", data: [] }],
       },
       options: {
         responsive: true,
@@ -48,15 +49,11 @@ export default {
       },
       showGraphs: false,
       data2: {
-        labels: [ "Adult", "Juvenile"], 
-     
-        datasets: [{ data: [] }],
-      },
-     
+        labels: ["Adult", "Juvenile"],
 
-   
+        datasets: [{ label: "Age", data: [] }],
+      },
     };
-    
   },
   methods: {
     async createGraph() {
@@ -70,8 +67,8 @@ export default {
       console.log(inputxd);
       if (inputxd === "Primary Fur Color") {
         console.log("hi");
-        this.showGraph = true
-        this.showGraphs = false
+        this.showGraph = true;
+        this.showGraphs = false;
 
         const black = dataYep.filter(
           (squirrelYes) => squirrelYes.primary_fur_color === "Black"
@@ -89,8 +86,8 @@ export default {
         this.data.datasets[0].data.push(cinnamon.length);
       } else if (inputxd === "Age") {
         console.log("bye");
-        this.showGraph = false
-        this.showGraphs = true
+        this.showGraph = false;
+        this.showGraphs = true;
         const Adult = dataYep.filter(
           (squirrelYes) => squirrelYes.age === "Adult"
         );
