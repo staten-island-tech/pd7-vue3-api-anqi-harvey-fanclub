@@ -1,9 +1,10 @@
 <template>
-  <DoughnutChart/>
+  <RouterLink to="/"></RouterLink>
+  <DoughnutChart />
 </template>
 
 <script>
-import DoughnutChart from '../components/DoughnutChart.vue';
+import DoughnutChart from '../components/DoughnutChart.vue'
 export default {
   name: 'App',
   components: { DoughnutChart }
