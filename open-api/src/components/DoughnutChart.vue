@@ -1,8 +1,8 @@
 <template>
   <div class="chart">
-    <RouterLink to="/">Back to Main</RouterLink>
-    <h2>Squirrel Primary Colors - Doughnut Chart</h2>
     <Doughnut v-if="loaded" :data="chartData" :options="chartOptions" />
+    <button @click="getColor()">See By Color</button>
+    <button @click="getAge()">See By Age</button>
   </div>
 </template>
 
@@ -20,50 +20,78 @@ export default {
   data() {
     return {
       loaded: false,
+      color: false,
+      age: false,
       chartData: {
-        labels: ['Gray', 'Cinnamon', 'Black'],
-        datasets:[{ data: [] }],
+        labels: [],
+        datasets: [{ data: [] }],
+        backgroundColor: []
       },
       chartOptions: {
-        responsive: true,
-        maintainAspectRatio: true,
-        backgroundColor: ['#7B888E', '#9c4722', '#282d30'],
+        responsive: true
       }
     }
   },
-  async mounted() {
-    try {
-      const res = await fetch('https://data.cityofnewyork.us/resource/vfnx-vebw.json')
-      const squirrelData = await res.json()
-      const gray = squirrelData.filter((squirrel) => squirrel.primary_fur_color === 'Gray')
-      this.chartData.datasets[0].data.push(gray.length)
+  computed: {
+    async getColor() {
+      this.chartData.labels.length = 0
+      this.chartData.datasets[0].data.length = 0
+      this.chartData.backgroundColor.length = 0
+      this.color = true
+      this.age = false
+      this.loaded = false
+      try {
+        const res = await fetch('https://data.cityofnewyork.us/resource/vfnx-vebw.json')
+        const squirrelData = await res.json()
+        const gray = squirrelData.filter((squirrel) => squirrel.primary_fur_color === 'Gray')
+        this.chartData.datasets[0].data.push(gray.length)
 
-      const cinnamon = squirrelData.filter((squirrel) => squirrel.primary_fur_color === 'Cinnamon')
-      this.chartData.datasets[0].data.push(cinnamon.length)
+        const cinnamon = squirrelData.filter(
+          (squirrel) => squirrel.primary_fur_color === 'Cinnamon'
+        )
+        this.chartData.datasets[0].data.push(cinnamon.length)
 
-      const black = squirrelData.filter((squirrel) => squirrel.primary_fur_color === 'Black')
-      this.chartData.datasets[0].data.push(black.length)
+        const black = squirrelData.filter((squirrel) => squirrel.primary_fur_color === 'Black')
+        this.chartData.datasets[0].data.push(black.length)
 
-      this.loaded = true
-    } catch (e) {
-      console.error(e)
+        this.chartData.labels.push('Gray', 'Cinnamon', 'Black')
+
+        this.chartData.backgroundColor.push('#7B888E', '#9c4722', '#3b444b')
+
+        this.loaded = true
+        console.log('color')
+      } catch (e) {
+        console.error(e)
+      }
+      console.log(this.chartData)
+    },
+    async getAge() {
+      this.chartData.labels.length = 0
+      this.chartData.datasets[0].data.length = 0
+      this.chartData.backgroundColor.length = 0
+      this.color = false
+      this.age = true
+      this.loaded = false
+      try {
+        const res = await fetch('https://data.cityofnewyork.us/resource/vfnx-vebw.json')
+        const squirrelData = await res.json()
+        const adult = squirrelData.filter((squirrel) => squirrel.age === 'Adult')
+        this.chartData.datasets[0].data.push(adult.length)
+
+        const juvenile = squirrelData.filter(
+          (squirrel) => squirrel.primary_fur_color === 'Juvenile'
+        )
+        this.chartData.datasets[0].data.push(juvenile.length)
+        this.loaded = true
+
+        this.chartData.labels.push('Adult', 'Juvenile')
+
+        this.chartData.backgroundColor.push('#b20019', '#272a2b')
+      } catch (e) {
+        console.error(e)
+      }
+      console.log(this.chartData)
     }
-    console.log(this.chartData)
   }
 }
 </script>
-
-<style scoped>
-h2 {
-  color: #7a6e63;
-  font-size: 2rem;
-  text-align: center;
-
-}
-h2:hover {
-  text-decoration: underline;
-  transition: 1s;
-  color: #7a6e63;
-  font-size: 2.5rem;
-}
-</style>
