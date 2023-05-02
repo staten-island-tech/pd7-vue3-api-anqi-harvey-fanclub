@@ -1,12 +1,12 @@
 <template>
-    <DoughnutCard/>
+    <ChartCard/>
   </template>
   
   <script>
-  import DoughnutCard from '../components/DoughnutCard.vue';
+  import ChartCard from '../components/ChartCard.vue';
   export default {
     name: 'App',
-    components: { DoughnutCard }
+    components: { ChartCard }
   }
   </script>
   
