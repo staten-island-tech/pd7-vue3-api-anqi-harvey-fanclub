@@ -40,7 +40,7 @@ export default {
       data: {
         labels: [ "Black", "Gray", "Cinnamon"], 
      
-        datasets: [{ data: [] }],
+        datasets: [{ label: "Primary Fur Color",data: [] }],
       },
       options: {
         responsive: true,
@@ -50,7 +50,7 @@ export default {
       data2: {
         labels: [ "Adult", "Juvenile"], 
      
-        datasets: [{ data: [] }],
+        datasets: [{ label: "Age",data: [] }],
       },
      
 
