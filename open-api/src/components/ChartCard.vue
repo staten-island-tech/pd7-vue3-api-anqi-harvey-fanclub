@@ -1,7 +1,7 @@
 <template>
-  <RouterLink to="/doughnut">Squirrel Primary Colors - Doughnut Chart</RouterLink>
+  <RouterLink to="/doughnut">Squirrel - Doughnut Chart</RouterLink>
   <br />
-  <RouterLink to="/bar">Squirrel Primary Colors - Bar Chart</RouterLink>
+  <RouterLink to="/bar">Squirrel - Bar Chart</RouterLink>
 </template>
 
 <script>
