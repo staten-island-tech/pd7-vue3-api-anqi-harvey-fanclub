@@ -20,73 +20,64 @@ export default {
   data() {
     return {
       loaded: false,
-      color: false,
-      age: false,
+      squirrelColor: false,
+      squirrelAge: false,
       chartData: {
         labels: [],
-        datasets: [{ data: [] }],
-        backgroundColor: []
+        datasets: [{ data: [] }]
       },
       chartOptions: {
-        responsive: true
+        responsive: true,
+        backgroundColor: []
       }
     }
   },
-  computed: {
+  methods: {
     async getColor() {
-      this.chartData.labels.length = 0
-      this.chartData.datasets[0].data.length = 0
-      this.chartData.backgroundColor.length = 0
-      this.color = true
-      this.age = false
+      this.squirrelColor = true
+      this.squirrelAge = false
       this.loaded = false
       try {
         const res = await fetch('https://data.cityofnewyork.us/resource/vfnx-vebw.json')
         const squirrelData = await res.json()
         const gray = squirrelData.filter((squirrel) => squirrel.primary_fur_color === 'Gray')
-        this.chartData.datasets[0].data.push(gray.length)
 
         const cinnamon = squirrelData.filter(
           (squirrel) => squirrel.primary_fur_color === 'Cinnamon'
         )
-        this.chartData.datasets[0].data.push(cinnamon.length)
 
         const black = squirrelData.filter((squirrel) => squirrel.primary_fur_color === 'Black')
-        this.chartData.datasets[0].data.push(black.length)
+        this.chartData.datasets[0].data = [gray.length, cinnamon.length, black.length]
 
-        this.chartData.labels.push('Gray', 'Cinnamon', 'Black')
+        this.chartData.labels = ['Gray', 'Cinnamon', 'Black']
 
-        this.chartData.backgroundColor.push('#7B888E', '#9c4722', '#3b444b')
+        this.chartOptions.backgroundColor = ['#7B888E', '#9c4722', '#3b444b']
 
         this.loaded = true
-        console.log('color')
       } catch (e) {
         console.error(e)
       }
       console.log(this.chartData)
     },
     async getAge() {
-      this.chartData.labels.length = 0
-      this.chartData.datasets[0].data.length = 0
-      this.chartData.backgroundColor.length = 0
-      this.color = false
-      this.age = true
+      this.squirrelColor = false
+      this.squirrelAge = true
       this.loaded = false
       try {
         const res = await fetch('https://data.cityofnewyork.us/resource/vfnx-vebw.json')
         const squirrelData = await res.json()
         const adult = squirrelData.filter((squirrel) => squirrel.age === 'Adult')
-        this.chartData.datasets[0].data.push(adult.length)
 
         const juvenile = squirrelData.filter(
           (squirrel) => squirrel.primary_fur_color === 'Juvenile'
         )
-        this.chartData.datasets[0].data.push(juvenile.length)
+        this.chartData.datasets[0].data = [adult.length, juvenile.length]
+
         this.loaded = true
 
-        this.chartData.labels.push('Adult', 'Juvenile')
+        this.chartData.labels = ['Adult', 'Juvenile']
 
-        this.chartData.backgroundColor.push('#b20019', '#272a2b')
+        this.chartOptions.backgroundColor = ['#b20019', '#272a2b']
       } catch (e) {
         console.error(e)
       }
