@@ -1,10 +1,10 @@
 <template>
   <Bar v-if="showGraph" :data="data" :options="options" />
-  <button @click="showGraph = true">Click me to show the message</button>
-  <button @click="createGraph">Jaja</button>
-  <select type="input" id="input">
+  <Bar v-if="showGraphs" :data="data2" :options="options" />
+  <button @click="createGraph">Create Graph</button>
+  <select type="input" id="input" >
     <option>Age</option>
-    <option>Fur Color</option>
+    <option>Primary Fur Color</option>
   </select>
 </template>
 
@@ -32,20 +32,31 @@ ChartJS.register(
 export default {
   name: "App",
   components: {
-    Bar,
+    Bar, Bar
   },
   data() {
     return {
       showGraph: false,
       data: {
-        labels: ["Black", "Gray", "Cinnamon"],
+        labels: [ "Black", "Gray", "Cinnamon"], 
+     
         datasets: [{ data: [] }],
       },
       options: {
         responsive: true,
         backgroundColor: ["#000000", "#808080", "#D2691E"],
       },
+      showGraphs: false,
+      data2: {
+        labels: [ "Adult", "Juvenile"], 
+     
+        datasets: [{ data: [] }],
+      },
+     
+
+   
     };
+    
   },
   methods: {
     async createGraph() {
@@ -57,8 +68,11 @@ export default {
       let inputxd = document.querySelector("#input").value;
 
       console.log(inputxd);
-      if (inputxd === "Fur Color") {
+      if (inputxd === "Primary Fur Color") {
         console.log("hi");
+        this.showGraph = true
+        this.showGraphs = false
+
         const black = dataYep.filter(
           (squirrelYes) => squirrelYes.primary_fur_color === "Black"
         );
@@ -75,14 +89,16 @@ export default {
         this.data.datasets[0].data.push(cinnamon.length);
       } else if (inputxd === "Age") {
         console.log("bye");
+        this.showGraph = false
+        this.showGraphs = true
         const Adult = dataYep.filter(
           (squirrelYes) => squirrelYes.age === "Adult"
         );
-        this.data.datasets[0].data.push(Adult.length);
+        this.data2.datasets[0].data.push(Adult.length);
         const Juvenile = dataYep.filter(
           (squirrelYes) => squirrelYes.age === "Juvenile"
         );
-        this.data.datasets[0].data.push(Juvenile.length);
+        this.data2.datasets[0].data.push(Juvenile.length);
       }
     },
   },
